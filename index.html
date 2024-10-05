@@ -28,6 +28,18 @@
         })(window,document,'script','dataLayer','GTM-5G242HGX');
     </script>
     <!-- End Google Tag Manager -->
+
+    <!-- Custom Event -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5G242HGX"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'GTM-5G242HGX');
+    </script>
+    <!-- End Custom Event -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple E-commerce Site</title>
@@ -160,6 +172,20 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5G242HGX"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
+    <!-- Custom Event -->
+    <script>
+      /**
+      *   The following event is sent when the page loads. You could
+      *   wrap the event in a JavaScript function so the event is
+      *   sent when the user performs some action.
+      */
+      gtag('event', 'home_view', {
+        'app_name': 'Simple E-commerce Site',
+        'screen_name': 'Home'
+      });
+    </script> 
+    <!-- End Custom Event -->
+    
     <header>
         <h1>Buy Hot Wheels</h1>
     </header>
