@@ -76,6 +76,18 @@
         .checkout:hover {
             background-color: red;
         }
+        .delet_items {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .delet_items:hover {
+            background-color: red;
+        }
         footer {
             background: linear-gradient(180deg, yellow, orange, red);
             color: #fff;
@@ -85,6 +97,33 @@
             width: 100%;
             bottom: 0;
         }
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        color: #333;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
     </style>
     <script>
         window.onload = function() {
@@ -97,22 +136,25 @@
 
             // Count items
             cart.forEach(item => {
-            if (itemCounts[item.name]) {
-                itemCounts[item.name].count += 1;
-                itemCounts[item.name].price += item.price;
-            } else {
-                itemCounts[item.name] = { count: 1, price: item.price };
-            }
+                if (itemCounts[item.name]) {
+                    itemCounts[item.name].count += 1;
+                    itemCounts[item.name].price = item.price;
+                } else {
+                    itemCounts[item.name] = { count: 1, price: item.price };
+                }
             });
 
-            // Display cart items
+            // Display cart items as a table
             if (cart.length === 0) {
-            cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+                cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
             } else {
-            for (let itemName in itemCounts) {
-                cartItemsDiv.innerHTML += `<p>${itemName} - $${itemCounts[itemName].price.toFixed(2)} (x${itemCounts[itemName].count})</p>`;
-                total += itemCounts[itemName].price;
-            }
+                let table = '<table><tr><th>Product Name</th><th>Price</th><th>Quantity</th></tr>';
+                for (let itemName in itemCounts) {
+                    table += `<tr><td>${itemName}</td><td>$${itemCounts[itemName].price.toFixed(2)}</td><td>${itemCounts[itemName].count}</td></tr>`;
+                    total += itemCounts[itemName].price * itemCounts[itemName].count;
+                }
+                table += '</table>';
+                cartItemsDiv.innerHTML = table;
             }
 
             // Display total price
@@ -135,9 +177,6 @@
     <main>
         <section class="cart-items">
             <h2>Your Items</h2>
-            <style>
-                
-            </style>
             <ul id="cart-items-list">
                 <!-- Items will be dynamically added here -->
             </ul>
@@ -146,6 +185,7 @@
             <h2>Summary</h2>
             <p>Total: <span class="total-price">$0.00</span></p>
             <button class="checkout">Pay Now</button>
+            <button class="delet_items">Delete Cart Items</button>
         </section>
     </main>
     <footer>
@@ -154,6 +194,14 @@
     <script>
         document.querySelector('.checkout').addEventListener('click', function() {
             alert('Thank you for purchasing!');
+            localStorage.removeItem('cart');
+            document.getElementById('cart-items-list').innerHTML = '<p>Your cart is empty.</p>';
+            document.querySelector('.total-price').textContent = '$0.00';
+        });
+    </script>
+    <script>
+        document.querySelector('.delet_items').addEventListener('click', function() {
+            alert('All items are deleted!');
             localStorage.removeItem('cart');
             document.getElementById('cart-items-list').innerHTML = '<p>Your cart is empty.</p>';
             document.querySelector('.total-price').textContent = '$0.00';
