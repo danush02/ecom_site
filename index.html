@@ -154,6 +154,21 @@
             margin-bottom: 10px;
         }
     </style>
+    <script>
+        function addToCart(product) {
+            // Get cart from local storage or initialize an empty array
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Add the selected product to the cart
+            cart.push(product);
+
+            // Save the updated cart back to local storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Optional: Alert user or update UI
+            alert(product.name + ' has been added to your cart!');
+        }
+    </script>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -165,9 +180,10 @@
     </header>
     <nav>
         <a href="">Home</a>
-        <a href="">Shop</a>
+        <a href="index.html#products">Shop</a>
         <a href="signin.html">Login</a>
         <a href="signup.html">Sign Up</a>
+        <a href="cart.html">Cart [<span id="cart-count">0</span>]</a>
         <a href="Policy Document.pdf" download>Download Policy Document</a>
 
     </nav>
@@ -195,29 +211,29 @@
         <p id="promo-code" style="display:none; color: black; font-size: 1.2em; margin-top: 10px; font-weight: bold;">HOTWHEELS20</p>
     </div>
     <div class="container clearfix">
-        <div class="product">
+        <div class="product" id="products">
             <img src="images/Car1.jpg" alt="Product 1">
             <h2>Product 1</h2>
             <p>$10.00</p>
-            <a href="product1.html"><button>Add to Cart</button></a>
+            <button onclick="addToCart({ id: 1, name: 'Product 1', price: 10 })">Add to Cart</button>
         </div>
         <div class="product">
             <img src="images/Car2.jpg" alt="Product 2">
             <h2>Product 2</h2>
             <p>$20.00</p>
-            <a href="product2.html"><button>Add to Cart</button></a>
+            <button onclick="addToCart({ id: 2, name: 'Product 2', price: 20 })">Add to Cart</button>
         </div>
         <div class="product">
             <img src="images/Car3.png" alt="Product 3">
             <h2>Product 3</h2>
             <p>$30.00</p>
-            <a href="product3.html"><button>Add to Cart</button></a>
+            <button onclick="addToCart({ id: 3, name: 'Product 3', price: 30 })">Add to Cart</button>
         </div>
         <div class="product">
             <img src="images/Car4.jpg" alt="Product 4">
             <h2>Product 4</h2>
             <p>$35.00</p>
-            <a href="product4.html"><button>Add to Cart</button></a>
+            <button onclick="addToCart({ id: 4, name: 'Product 4', price: 35 })">Add to Cart</button>
         </div>
     </div>
     <section class="about-us">
@@ -232,5 +248,12 @@
     <footer>
         <p>&copy; 2023 E-commerce Site. All rights reserved.</p>
     </footer>
+    <script>
+    // Update cart count on page load based on local storage
+    document.addEventListener('DOMContentLoaded', () => {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cart-count').textContent = cart.length;
+    });
+    </script>
 </body>
 </html>
