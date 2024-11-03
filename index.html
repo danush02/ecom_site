@@ -182,7 +182,7 @@
         function addToCart(product) {
             // Get cart from local storage or initialize an empty array
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
+
             // Add the selected product to the cart
             cart.push(product);
 
@@ -254,7 +254,18 @@
             <h2>Product 1</h2>
             <p>$10.00</p>
             <a href="product1.html"><button class="view_details">View Details</button></a>
-            <button class="add_to_cart" onclick="addToCart({ id: 1, name: 'Product 1', price: 10 })">Add to Cart</button>
+            <button class="add_to_cart" id="add_to_cart_item1" onclick="addToCart({ id: 1, name: 'Product 1', price: 10 })">Add to Cart</button>
+            <script>
+                document.getElementById("add_to_cart_item1").addEventListener("click", function() {
+                    gtag('event', 'add_to_cart_item1', {
+                        'items': [{
+                            'id': '1',
+                            'name': 'Product 1',
+                            'price': 10
+                        }]
+                    });
+                });
+            </script>
         </div>
         <div class="product">
             <a href="product2.html"><img src="images/Car2.jpg" alt="Product 2"></a>

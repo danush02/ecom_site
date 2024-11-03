@@ -110,6 +110,15 @@
             alert(product.name + ' has been added to your cart!');
         }
     </script>
+    <script>         
+        gtag('event', 'view_item_1', {
+            'items': [{
+                'id': '1',
+                'name': 'Product 1',
+                'price': 10
+            }]
+        });
+    </script>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
