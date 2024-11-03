@@ -177,43 +177,6 @@
             totalPriceSpan.textContent = `$${total.toFixed(2)}`;
         }
     </script>
-    <script>
-        // Function to generate a unique transaction ID
-        function generateTransactionId() {
-          return 'T_' + Math.floor(Math.random() * 1000000) + '_' + Date.now();
-        }
-      
-        // Prepare items array based on cart data
-        function getItemsArray() {
-            let cartData = JSON.parse(localStorage.getItem('cart')) || [];
-            let itemCounts = {};
-            cartData.forEach(item => {
-                if (itemCounts[item.name]) {
-                    itemCounts[item.name].count += 1;
-                    itemCounts[item.name].price = item.price;
-                } else {
-                    itemCounts[item.name] = { count: 1, price: item.price };
-                }
-            });
-            return Object.keys(itemCounts).map(name => ({
-                item_id: name,
-                item_name: name,
-                price: itemCounts[name].price,
-                quantity: itemCounts[name].count
-            }));
-        }
-        // Set up click event listener for "Pay Now" button
-        document.getElementById("checkout").addEventListener("click", function() {
-          // Trigger the purchase event only when "Pay Now" is clicked
-          gtag("event", "purchase", {
-            transaction_id: generateTransactionId(),
-            value: getItemsArray().reduce((acc, item) => acc + (item.price * item.quantity), 0),
-            currency: "USD",
-            items: getItemsArray()
-          });
-          console.log("Purchase event triggered!");
-        });
-    </script>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -242,6 +205,45 @@
             <h2>Summary</h2>
             <p>Total: <span class="total-price">$0.00</span></p>
             <button class="checkout" id="checkout">Pay Now</button>
+            <script>
+                // Function to generate a unique transaction ID
+                function generateTransactionId() {
+                  return 'T_' + Math.floor(Math.random() * 1000000) + '_' + Date.now();
+                }
+              
+                // Prepare items array based on cart data
+                function getItemsArray() {
+                    let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+                    let itemCounts = {};
+                    cartData.forEach(item => {
+                        if (itemCounts[item.name]) {
+                            itemCounts[item.name].count += 1;
+                            itemCounts[item.name].price = item.price;
+                        } else {
+                            itemCounts[item.name] = { count: 1, price: item.price };
+                        }
+                    });
+                    return Object.keys(itemCounts).map(name => ({
+                        item_id: name,
+                        item_name: name,
+                        price: itemCounts[name].price,
+                        quantity: itemCounts[name].count
+                    }));
+                }
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Set up click event listener for "Pay Now" button
+                    document.getElementById("checkout").addEventListener("click", function() {
+                      // Trigger the purchase event only when "Pay Now" is clicked
+                      gtag("event", "purchase", {
+                        transaction_id: generateTransactionId(),
+                        value: getItemsArray().reduce((acc, item) => acc + (item.price * item.quantity), 0),
+                        currency: "USD",
+                        items: getItemsArray()
+                      });
+                      console.log("Purchase event triggered!");
+                    });
+                });  
+            </script>
             <button class="delet_items">Delete Cart Items</button>
         </section>
     </main>
