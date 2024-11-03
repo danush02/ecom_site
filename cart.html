@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NM0093420L"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-NM0093420L');
+        </script>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -195,7 +204,7 @@
         <section class="cart-summary">
             <h2>Summary</h2>
             <p>Total: <span class="total-price">$0.00</span></p>
-            <button class="checkout">Pay Now</button>
+            <button class="checkout" id="checkout">Pay Now</button>
             <button class="delet_items">Delete Cart Items</button>
         </section>
     </main>
@@ -225,5 +234,33 @@
             document.getElementById('cart-count').textContent = cart.length;
         });
         </script>
+    <script>
+        // Function to generate a unique transaction ID
+        function generateTransactionId() {
+          return 'T_' + Math.floor(Math.random() * 1000000) + '_' + Date.now();
+        }
+      
+        // Prepare items array based on cart data
+        function getItemsArray() {
+          return cartData.map(item => ({
+            item_id: item.id,
+            item_name: item.name,
+            price: item.price,
+            quantity: item.quantity
+          }));
+        }
+      
+        // Set up click event listener for "Pay Now" button
+        document.getElementById("checkout").addEventListener("click", function() {
+          // Trigger the purchase event only when "Pay Now" is clicked
+          gtag("event", "purchase", {
+            transaction_id: generateTransactionId(),
+            value: getItemsArray().reduce((acc, item) => acc + (item.price * item.quantity), 0),
+            currency: "USD",
+            items: getItemsArray()
+          });
+          console.log("Purchase event triggered!");
+        });
+    </script>
 </body>
 </html>
