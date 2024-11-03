@@ -251,6 +251,10 @@
 
                     console.log("Purchase event pushed to data layer!");
                     });
+                alert('Thank you for purchasing!');
+                localStorage.removeItem('cart');
+                document.getElementById('cart-items-list').innerHTML = '<p>Your cart is empty.</p>';
+                document.querySelector('.total-price').textContent = '$0.00';
                 });
             </script>
             <button class="delet_items">Delete Cart Items</button>
@@ -259,14 +263,6 @@
     <footer>
         <p>&copy; 2023 Your Store</p>
     </footer>
-    <script>
-        document.querySelector('.checkout').addEventListener('click', function() {
-            alert('Thank you for purchasing!');
-            localStorage.removeItem('cart');
-            document.getElementById('cart-items-list').innerHTML = '<p>Your cart is empty.</p>';
-            document.querySelector('.total-price').textContent = '$0.00';
-        });
-    </script>
     <script>
         document.querySelector('.delet_items').addEventListener('click', function() {
             alert('All items are deleted!');
