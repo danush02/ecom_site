@@ -253,25 +253,27 @@
             <img src="images/Car1.jpg" alt="Product 1">
             <h2>Product 1</h2>
             <p>$10.00</p>
-            <a href="product1.html"><button class="view_details" id="view_details1">View Details</button></a>
+            <a href="product1.html"><button class="view_details" id="select_item1">View Details</button></a>
             <button class="add_to_cart" id="add_to_cart_item1" onclick="addToCart({ id: 1, name: 'Product 1', price: 10 })">Add to Cart</button>
+            <!-- Custom Event -->
             <script>
-                document.getElementById("view_details1").addEventListener("click", function() {
-                    gtag('event', 'view_item_list', {
-                            'item_id': 'ITM_12345',
-                            'item_name': 'Python',
-                            'affiliation': 'online_Courses',
-                            'currency': 'INR',
-                            'discount': 100,
-                            'item_brand': 'MOOC',
-                            'item_category': 'Python',
-                            'item_category2': 'ML',
-                            'item_category3': 'DS',
-                            'item_category4': 'CS',
-                            'item_variant': 'Online',
-                            'location_id': 'ChIJIQBpAG2ahYAR_6128GcTUEo',
-                            'price': 5000,
-                            'quantity': 1,
+                document.getElementById("select_item1").addEventListener("click", function() {
+                    gtag('event', 'select_item', {
+                            'item_id': '1',
+                            'item_name': 'Product 1',
+                            'currency': 'USD',
+                            'price': 10,
+                        });
+                    });
+            </script>
+            <!-- End Custom Event -->
+            <script>
+                document.getElementById("add_to_cart_item1").addEventListener("click", function() {
+                    gtag('event', 'add_item_to_cart', {
+                            'item_id': '1',
+                            'item_name': 'Product 1',
+                            'currency': 'USD',
+                            'price': 10,
                         });
                     });
             </script>
